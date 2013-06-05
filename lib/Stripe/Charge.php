@@ -34,6 +34,10 @@ class Stripe_Charge extends Stripe_ApiResource
 
   public function refund($params=null)
   {
+    if (is_int($params)) {
+      $params = array("amount" => $params);
+    }
+
     $requestor = new Stripe_ApiRequestor($this->_apiKey);
     $url = $this->instanceUrl() . '/refund';
     list($response, $apiKey) = $requestor->request('post', $url, $params);
